@@ -5,6 +5,10 @@ description: |
   engaging GitHub issues with productivity insights, community highlights,
   and project recommendations.
 
+engine: 
+  id: copilot
+  model: copilot/auto
+
 on:
   schedule: daily
   workflow_dispatch:
