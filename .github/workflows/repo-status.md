@@ -4,40 +4,38 @@ description: |
   activity (issues, PRs, discussions, releases, code changes) and generates
   engaging GitHub issues with productivity insights, community highlights,
   and project recommendations.
-
-engine: 
-  id: copilot
-  model: copilot/auto
-
-on:
+engine: claude
+network: defaults
+"on":
   schedule: daily
-  workflow_dispatch:
-
+  workflow_dispatch: null
 permissions:
   contents: read
+  copilot-requests: none
   issues: read
   pull-requests: read
-
-  copilot-requests: none
-network: defaults
-
-tools:
-  bash: ["cat", "ls", "find", "grep", "head", "tail", "wc"]
-  github:
-    # If in a public repo, setting `lockdown: false` allows
-    # reading issues, pull requests and comments from 3rd-parties
-    # If in a private repo this has no particular effect.
-    lockdown: false
-    min-integrity: none # This workflow is allowed to examine and comment on any issues
-
 safe-outputs:
-  mentions: false
   allowed-github-references: []
   create-issue:
-    title-prefix: "[repo-status] "
-    labels: [report, daily-status]
     close-older-issues: true
+    labels:
+      - report
+      - daily-status
+    title-prefix: "[repo-status] "
+  mentions: false
 source: githubnext/agentics/workflows/repo-status.md@5d11aa2a05ce2c943c085acb7b12b583f83ed375
+tools:
+  bash:
+    - cat
+    - ls
+    - find
+    - grep
+    - head
+    - tail
+    - wc
+  github:
+    lockdown: false
+    min-integrity: none
 ---
 
 # Repo Status
